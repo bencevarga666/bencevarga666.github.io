@@ -36,7 +36,7 @@ const formatDate = ({ year, month }: AboutSectionDataDate): string => {
 	return `${year}. ${month}`;
 };
 
-const AboutSection = ({ title, items }: AboutSectionData): JSX.Element => {
+const AboutSection = ({ title, items }: AboutSectionData) => {
 	return (
 		<Box sx={{
 			display: "flex",

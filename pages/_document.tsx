@@ -1,5 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
-import { ColorModeScript } from "@chakra-ui/color-mode";
+import { ColorModeScript } from '@chakra-ui/react'
 import { Html, Head, Main, NextScript } from "next/document";
 import { theme } from "./_app";
 
@@ -9,7 +8,7 @@ export default function Document() {
 			<Head />
 			<body style={{ backgroundColor: "black" }}>
 				<ColorModeScript initialColorMode={theme.config.initialColorMode} />
-				<Main />
+					<Main />
 				<NextScript />
 			</body>
 		</Html>
