@@ -1,6 +1,6 @@
 import fs from "fs";
-import { join } from "path";
 import matter from "gray-matter";
+import { join } from "path";
 
 const postsDirectory = join(process.cwd(), "_posts");
 
@@ -15,8 +15,8 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
 	const { data, content } = matter(fileContents);
 
 	type Items = {
-		[key: string]: string
-	}
+		[key: string]: string;
+	};
 
 	const items: Items = {};
 

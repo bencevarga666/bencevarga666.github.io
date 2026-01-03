@@ -1,21 +1,21 @@
-import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import Container from "../../components/container";
-import PostBody from "../../components/post-body";
-import Header from "../../components/header";
-import PostHeader from "../../components/post-header";
-import Layout from "../../components/layout";
-import { getPostBySlug, getAllPosts } from "../../lib/api";
-import PostTitle from "../../components/post-title";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import Container from "../../components/container";
+import Header from "../../components/header";
+import Layout from "../../components/layout";
+import PostBody from "../../components/post-body";
+import PostHeader from "../../components/post-header";
+import PostTitle from "../../components/post-title";
+import type PostType from "../../interfaces/post";
+import { getAllPosts, getPostBySlug } from "../../lib/api";
 import { CMS_NAME } from "../../lib/constants";
 import markdownToHtml from "../../lib/markdownToHtml";
-import type PostType from "../../interfaces/post";
 
 type Props = {
-  post: PostType
-  preview?: boolean
-}
+	post: PostType;
+	preview?: boolean;
+};
 
 export default function Post({ post, preview }: Props) {
 	const router = useRouter();
@@ -52,10 +52,10 @@ export default function Post({ post, preview }: Props) {
 }
 
 type Params = {
-  params: {
-    slug: string
-  }
-}
+	params: {
+		slug: string;
+	};
+};
 
 export async function getStaticProps({ params }: Params) {
 	const post = getPostBySlug(params.slug, [

@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
 type Props = {
-	children?: ReactNode
-}
+	children?: ReactNode;
+};
 
 const PostTitle = ({ children }: Props) => {
 	return (
