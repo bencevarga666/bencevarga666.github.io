@@ -278,16 +278,15 @@ const sections: Array<AboutSectionData> = [
 ];
 
 const AboutPage = () => {
-	return (<>
-		<Layout>
+	return (<Layout>
 			<Head>
-				<title>Bence László - bencelaszlo.hu</title>
+				<title>Bence Varga - bence.varga.bio</title>
 			</Head>
 			<Container >
 				<Heading as='h1' size='4xl' noOfLines={1}  className="text-3xl font-bold underline">
-                    Bence László
+                    Bence Varga
 				</Heading>
-				<Text as="p" size="md">bencelaszlo</Text>
+				<Text as="p" size="md">bencevarga666</Text>
 				<Heading as="p" size="md">Software Engineer</Heading>
 			</Container>
 			{sections.map((section) => <AboutSection key={section.title} {...section} />)}
@@ -336,8 +335,7 @@ const AboutPage = () => {
 					}}>Email</Button>
 				</ButtonGroup>
 			</Box>
-		</Layout>
-	</>);
+		</Layout>);
 };
 
 export default AboutPage;

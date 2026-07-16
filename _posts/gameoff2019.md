@@ -4,7 +4,7 @@ excerpt: 'GameOff is an annual game jam, organized by Github on itch.io. There w
 coverImage: ''
 date: '2020-01-18T15:35:07.322Z'
 author:
-  name: Bence László
+  name: Bence Varga
   picture: '/assets/blog/authors/tim.jpeg'
 ogImage:
   url: '/assets/blog/hello-world/cover.jpg'
@@ -30,7 +30,7 @@ I used the Rust programming language to implement Bitter Boundaries, if you have
 
 Rust has a plenty of good game engines, like Amethyst, but I chose Quicksilver ([author's website](https://ryanisaacg.com/quicksilver/)), because it is a minimal 2D engine, so I could implement everything from ground up except from the really basics (sprites, basic input event handling and sounds, etc.).
 
-I used two smaller crate, `image` and `rand`. `image` was needed to load and handle the sprites, and this way to extend the Quicksilver engine. `rand` is a generic collection for generating random numbers, which is handy when the computer player decision-making is somewhat randomly. 
+I used two smaller crate, `image` and `rand`. `image` was needed to load and handle the sprites, and this way to extend the Quicksilver engine. `rand` is a generic collection for generating random numbers, which is handy when the computer player decision-making is somewhat randomly.
 
 Thanks to Konstancia Szabó, I had have some hand-draw-style assets. These assets were made by [Krita](https://krita.org/), a really good (and improving) and also free (both as speech and beer) digital painting program.
 

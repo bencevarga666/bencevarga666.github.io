@@ -1,6 +1,6 @@
-# bencelaszlo.hu
+# bence.varga.bio
 
-Personal website. <https://bencelaszlo.hu>
+Personal website. <https://bence.varga.bio>
 
 ---
 

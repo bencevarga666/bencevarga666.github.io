@@ -1,5 +1,4 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
 import { BendoGridItem } from "./bendo-grid.item";
 import { config } from "../config";
 
@@ -25,9 +24,9 @@ export const BendoGridLayout = () => {
 				{config.FEATURES.ABOUT && <BendoGridItem label='About' href='/about' as='h2' size='xl' />}
 			</GridItem>
 			<GridItem area={"main"}>
-				<BendoGridItem label='Bence László' href='/' as='h1' size='2xl'>
+				<BendoGridItem label='Bence Varga' href='/' as='h1' size='2xl'>
 					<h2>Software Engineer</h2>
-					<p>bencelaszlo</p>
+					<p>bencevarga666</p>
 				</BendoGridItem>
 			</GridItem>
 			<GridItem area={"bottom"} />
