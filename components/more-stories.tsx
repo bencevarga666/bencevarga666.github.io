@@ -1,9 +1,9 @@
-import PostPreview from "./post-preview";
-import type Post from "../interfaces/post";
+import type Post from '../interfaces/post';
+import PostPreview from './post-preview';
 
 type Props = {
-	posts: Post[]
-}
+	posts: Post[];
+};
 
 const MoreStories = ({ posts }: Props) => {
 	return (
