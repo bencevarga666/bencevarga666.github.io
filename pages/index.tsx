@@ -1,4 +1,3 @@
-import React from "react";
 import Head from "next/head";
 import Layout from "../components/layout";
 import { Player } from "@remotion/player";
@@ -6,10 +5,9 @@ import { LandingPageVideo } from "../remotion/LandingPageVideo";
 import { config } from "../config";
 
 const LandingPage = () => {
-	return (<>
-		<Layout>
+	return (<Layout>
 			<Head>
-				<title>{"Bence László - bencelaszlo.hu"}</title>
+				<title>{"Bence Varga - bence.varga.bio"}</title>
 			</Head>
 			<Player
 				component={LandingPageVideo}
@@ -21,8 +19,7 @@ const LandingPage = () => {
 				loop
 				autoPlay
 			/>
-		</Layout>
-	</>);
+		</Layout>);
 };
 
 export default LandingPage;
