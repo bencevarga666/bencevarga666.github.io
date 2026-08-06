@@ -9,7 +9,7 @@ jobs:
       - name: Run Lighthouse
         run: |
           npm install -g lighthouse
-          lighthouse ${{ WEBSITE_URL }} --output=json --output-path=./vitals_report.json --chrome-flags="--headless"
+          lighthouse ${{ env.WEBSITE_URL }} --output=json --output-path=./vitals_report.json --chrome-flags="--headless"
 
       - name: Upload Report
         uses: actions/upload-artifact@v7
