@@ -2,6 +2,9 @@ name: Core Web Vitals Check
 
 on: [workflow_dispatch]
 
+env:
+  WEBSITE_URL: https://bence.varga.bio
+
 jobs:
   core-web-vitals-check:
     runs-on: ubuntu-latest
