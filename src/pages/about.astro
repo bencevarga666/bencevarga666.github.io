@@ -1,0 +1,340 @@
+---
+import MainLayout from '../layout/MainLayout.astro';
+
+const now = new Date();
+const yearsCoding = now.getFullYear() - 2014;
+---
+
+<MainLayout title="About">
+    <section class="hero">
+        <p class="hero__eyebrow glass-pill">Lead Support Engineer &middot; Software Engineer</p>
+        <h1 class="hero__title">
+            About <span class="grad">Bence Varga</span>
+        </h1>
+        <p class="hero__lead">
+            Software Engineer, currently working as a Lead Support Engineer.
+            I sit where engineering meets the people who depend on it — debugging
+            the hard problems, unblocking teams, and turning recurring pain into
+            lasting fixes and clearer documentation.
+        </p>
+        <div class="hero__cta">
+            <a class="btn btn--primary" href="https://github.com/bencevarga666" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                GitHub
+            </a>
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/bencevarga666/" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+                LinkedIn
+            </a>
+            <a class="btn btn--ghost" href="/blog">Read the blog</a>
+        </div>
+    </section>
+
+    <section class="grid" aria-label="About">
+        <article class="card card--accent">
+            <span class="kicker">What I do</span>
+            <h3>Lead Support Engineer</h3>
+            <p>
+                Own the toughest incoming issues, reproduce them, and route them to
+                a real fix. I treat support as a feedback loop — every ticket is a
+                signal about the product and the developer experience around it.
+            </p>
+        </article>
+
+        <article class="card">
+            <span class="kicker">How I work</span>
+            <h3>Engineering &amp; DX</h3>
+            <p>
+                I build tooling and automation so the next person doesn't hit the
+                same wall. Clean abstractions, thorough docs, and a bias toward
+                making things calm and repeatable.
+            </p>
+        </article>
+
+        <article class="card">
+            <span class="kicker">Stack</span>
+            <h3>Tools I reach for</h3>
+            <ul class="chips">
+                <li>TypeScript</li>
+                <li>Web platform</li>
+                <li>Node</li>
+                <li>Rust</li>
+                <li>Automation</li>
+                <li>Debugging</li>
+            </ul>
+        </article>
+
+        <article class="card card--stat">
+            <span class="kicker">Experience</span>
+            <strong class="stat">{yearsCoding}+</strong>
+            <p>years writing production code</p>
+        </article>
+
+        <article class="card card--wide">
+            <span class="kicker">Focus areas</span>
+            <h3>What I care about</h3>
+            <ul class="chips">
+                <li>Debugging &amp; triage</li>
+                <li>Developer experience</li>
+                <li>Tooling &amp; automation</li>
+                <li>Documentation</li>
+                <li>Web platform</li>
+                <li>TypeScript</li>
+            </ul>
+        </article>
+
+        <article class="card card--wide glass-soft">
+            <span class="kicker">A bit more</span>
+            <h3>Beyond the ticket queue</h3>
+            <p>
+                I've shipped a grid-based strategy game in Rust for the GitHub
+                GameOff 2019 jam, and I enjoy the kind of problems where
+                performance, correctness, and good taste all matter at once.
+                When I'm not debugging, I'm usually writing about it or
+                improving the tools that make the next bug easier to find.
+            </p>
+            <a class="link" href="/blog">Read the blog &rarr;</a>
+        </article>
+    </section>
+
+    <section class="connect">
+        <div class="connect__panel glass">
+            <h2>Find me</h2>
+            <p>Want to talk shop, share a tricky bug, or collaborate? I'm reachable on the platforms below.</p>
+            <div class="connect__links">
+                <a href="https://github.com/bencevarga666" target="_blank" rel="noopener noreferrer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                    github.com/bencevarga666
+                </a>
+                <a href="https://www.linkedin.com/in/bencevarga666/" target="_blank" rel="noopener noreferrer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+                    linkedin.com/in/bencevarga666
+                </a>
+            </div>
+        </div>
+    </section>
+</MainLayout>
+
+<style>
+    .glass {
+        background: var(--bv-glass, rgba(250,250,250,0.6));
+        border: 1px solid var(--bv-border, rgba(28,28,28,0.12));
+        backdrop-filter: blur(16px) saturate(140%);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        box-shadow: 0 8px 32px rgba(28,28,28,0.08);
+    }
+    .glass-soft { background: linear-gradient(135deg, rgba(250,250,250,0.6), rgba(250,250,250,0.4)); }
+
+    /* ---------- Hero (mirrors the Home page exactly) ---------- */
+    .hero {
+        padding: clamp(3rem, 10vh, 7rem) 0 2rem;
+        text-align: center;
+        max-width: 46rem;
+        margin-inline: auto;
+    }
+    .hero__eyebrow {
+        display: inline-block;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        margin-bottom: 1.25rem;
+    }
+    .hero__title {
+        font-size: clamp(2.4rem, 7vw, 4.5rem);
+        line-height: 1.05;
+        margin: 0 0 1.25rem;
+        letter-spacing: -0.02em;
+        font-weight: 800;
+    }
+    .grad {
+        background: linear-gradient(120deg, var(--bv-primary), var(--bv-primary-glow) 60%, var(--bv-secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .hero__lead {
+        font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+        line-height: 1.6;
+        color: var(--bv-muted, #5a5a5a);
+        max-width: 40rem;
+        margin: 0 auto 2rem;
+    }
+    .hero__cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+    }
+
+    /* ---------- Buttons (mirrors the Home page) ---------- */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1.3rem;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn--primary {
+        background: linear-gradient(135deg, var(--bv-primary), var(--bv-primary-hover));
+        color: #fff;
+        box-shadow: 0 6px 20px rgba(23,114,69,0.35);
+    }
+    .btn--ghost {
+        background: var(--bv-glass, rgba(250,250,250,0.6));
+        border-color: var(--bv-border, rgba(28,28,28,0.18));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: inherit;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin: 2.5rem 0;
+    }
+    .card {
+        padding: 1.5rem;
+        border-radius: 1.25rem;
+        background: var(--bv-glass, rgba(250,250,250,0.6));
+        border: 1px solid var(--bv-border, rgba(28,28,28,0.12));
+        backdrop-filter: blur(16px) saturate(140%);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        box-shadow: 0 8px 32px rgba(28,28,28,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(28,28,28,0.14);
+    }
+    .card--accent {
+        background: linear-gradient(135deg, rgba(23,114,69,0.16), rgba(43,179,102,0.10));
+    }
+    .card--wide { grid-column: 1 / -1; }
+    .card--stat { text-align: center; display: grid; place-items: center; }
+    .stat {
+        font-size: clamp(2.4rem, 6vw, 3.5rem);
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--bv-primary), var(--bv-primary-glow));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1;
+        margin: 0.25rem 0;
+    }
+    .kicker {
+        display: inline-block;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--bv-primary);
+        font-weight: 700;
+        margin-bottom: 0.6rem;
+    }
+    .card h3 { margin: 0 0 0.5rem; }
+    .card p { margin: 0; color: var(--bv-muted, #5a5a5a); line-height: 1.6; }
+    .card--stat p { margin-top: 0; }
+    .link {
+        display: inline-block;
+        margin-top: 1rem;
+        font-weight: 600;
+        color: var(--bv-primary);
+        text-decoration: none;
+    }
+    .link:hover { text-decoration: underline; }
+
+    .chips {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .chips li {
+        padding: 0.4rem 0.85rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        background: rgba(250,250,250,0.6);
+        border: 1px solid var(--bv-border, rgba(28,28,28,0.18));
+    }
+
+    .connect { margin: 1rem 0 2rem; }
+    .connect__panel {
+        border-radius: 1.5rem;
+        padding: clamp(1.5rem, 4vw, 2.75rem);
+        text-align: center;
+    }
+    .connect__panel h2 {
+        margin: 0 0 0.5rem;
+        font-size: clamp(1.5rem, 4vw, 2.25rem);
+    }
+    .connect__panel p {
+        color: var(--bv-muted, #5a5a5a);
+        max-width: 32rem;
+        margin: 0 auto 1.5rem;
+    }
+    .connect__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+    }
+    .connect__links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.1rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        background: rgba(250,250,250,0.6);
+        border: 1px solid var(--bv-border, rgba(28,28,28,0.18));
+        transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+    }
+    .connect__links a:hover {
+        transform: translateY(-2px);
+        background: var(--bv-primary);
+        color: #fff;
+    }
+
+    @media (max-width: 640px) {
+        .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+            --bv-glass: rgba(255,255,255,0.05);
+            --bv-border: rgba(255,255,255,0.10);
+            --bv-muted: #9a9a9a;
+        }
+        .card { box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+        .card:hover { box-shadow: 0 16px 40px rgba(0,0,0,0.6); }
+        .card--accent {
+            background: linear-gradient(135deg, rgba(43,179,102,0.16), rgba(23,114,69,0.10));
+        }
+        .glass-soft { background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)); }
+        .chips li, .connect__links a { background: rgba(255,255,255,0.05); }
+        .hero__lead, .connect__panel p { color: #9a9a9a; }
+    }
+
+    @supports not (backdrop-filter: blur(1px)) {
+        .glass, .card, .glass-soft, .btn--ghost {
+            background: rgba(250,250,250,0.92);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) .glass,
+            :root:not([data-theme="light"]) .card,
+            :root:not([data-theme="light"]) .glass-soft,
+            :root:not([data-theme="light"]) .btn--ghost {
+                background: rgba(28,28,28,0.92);
+            }
+        }
+    }
+</style>

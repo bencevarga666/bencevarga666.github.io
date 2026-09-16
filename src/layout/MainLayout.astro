@@ -1,0 +1,180 @@
+---
+import Head from '../components/Head.astro';
+
+const { title, ...props } = Astro.props;
+
+import '../styles/main.css';
+
+const pageTitle = title?.length > 0 ? `Bence Varga - ${title}` : 'Bence Varga';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Head title={pageTitle} />
+    </head>
+    <body>
+        <!-- Aurora substrate: blurred color blobs that the glass refracts -->
+        <div class="aurora" aria-hidden="true">
+            <span class="aurora__blob aurora__blob--1"></span>
+            <span class="aurora__blob aurora__blob--2"></span>
+            <span class="aurora__blob aurora__blob--3"></span>
+            <span class="aurora__grain"></span>
+        </div>
+
+        <header>
+            <nav class="site-nav container">
+                <a class="site-nav__brand" href="/">Bence Varga</a>
+                <ul class="site-nav__links">
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="container">
+            <slot />
+        </main>
+        <footer class="container">
+            <p>Bence Varga &middot; bence.varga.bio</p>
+        </footer>
+    </body>
+</html>
+
+<style is:global>
+    :root {
+        /* Palette: EERIE_BLACK + DARK_SPRING_GREEN */
+        --bv-primary: #177245;          /* dark spring green */
+        --bv-primary-hover: #0f4f2e;    /* darker green */
+        --bv-primary-glow: #2bb366;     /* luminous green for aurora/gradient */
+        --bv-secondary: #3a3a3a;        /* eerie-black neutral */
+        --bv-contrast: #1c1c1c;         /* eerie black */
+        --bv-bg: #fafafa;
+        --bv-bg-dark: #1c1c1c;
+        --bv-text: #2b2b2b;
+        --bv-text-dark: #d8d8d8;
+        --bv-muted: #5a5a5a;
+        --bv-muted-dark: #9a9a9a;
+    }
+
+    [data-theme="dark"],
+    :root:not([data-theme="dark"]) {
+        /* let mucss own its vars; we only layer glass on top */
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    main { flex: 1 0 auto; }
+
+    /* ---------- Aurora background ---------- */
+    .aurora {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    .aurora__blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.55;
+        will-change: transform;
+        animation: drift 22s ease-in-out infinite alternate;
+    }
+    .aurora__blob--1 {
+        width: 42vw; height: 42vw;
+        top: -8vw; left: -6vw;
+        background: radial-gradient(circle at 30% 30%, var(--bv-primary-glow), transparent 70%);
+    }
+    .aurora__blob--2 {
+        width: 38vw; height: 38vw;
+        top: 10vh; right: -8vw;
+        background: radial-gradient(circle at 70% 30%, var(--bv-secondary), transparent 70%);
+        animation-delay: -7s;
+    }
+    .aurora__blob--3 {
+        width: 46vw; height: 46vw;
+        bottom: -14vw; left: 28vw;
+        background: radial-gradient(circle at 50% 50%, var(--bv-primary), transparent 70%);
+        animation-delay: -14s;
+    }
+    .aurora__grain {
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+        opacity: 0.035;
+        mix-blend-mode: overlay;
+    }
+
+    @keyframes drift {
+        0%   { transform: translate3d(0,0,0) scale(1); }
+        50%  { transform: translate3d(2vw,3vh,0) scale(1.12); }
+        100% { transform: translate3d(-2vw,-2vh,0) scale(0.95); }
+    }
+
+    /* ---------- Minimal top-left nav ---------- */
+    .site-nav {
+        display: flex;
+        align-items: baseline;
+        gap: 1.75rem;
+        padding-block: 1.5rem;
+        padding-inline: 0;
+    }
+    .site-nav__brand {
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+        color: inherit;
+    }
+    .site-nav__brand:hover { color: var(--bv-primary); }
+    .site-nav__links {
+        display: flex;
+        gap: 1.25rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .site-nav__links a {
+        text-decoration: none;
+        color: var(--bv-muted, #5a5a5a);
+        font-size: 0.95rem;
+        transition: color 0.2s ease;
+    }
+    .site-nav__links a:hover { color: var(--bv-primary); }
+
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) .site-nav__links a { color: #9a9a9a; }
+    }
+
+    /* ---------- Dark mode adjustments (mucss sets color-scheme) ---------- */
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+            --bv-border: rgba(255,255,255,0.10);
+            --bv-glass: rgba(255,255,255,0.05);
+            --bv-text: var(--bv-text-dark);
+        }
+        .aurora__blob { opacity: 0.35; }
+    }
+
+    footer {
+        margin-top: 3rem;
+        text-align: center;
+        opacity: 0.8;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .aurora__blob { animation: none; }
+        html { scroll-behavior: auto; }
+    }
+</style>
