@@ -1,0 +1,197 @@
+---
+import MainLayout from '../../layout/MainLayout.astro';
+
+// Eagerly load all blog markdown so we can render by slug at build time.
+export async function getStaticPaths() {
+	const modules = import.meta.glob('../../blog/*.md', { eager: true });
+	return Object.keys(modules).map((path) => {
+		const slug = path.match(/\/blog\/([^/]+)\.md$/)?.[1] ?? path;
+		return { params: { slug }, props: { path } };
+	});
+}
+
+type Props = { path: string };
+const { path } = Astro.props as Props;
+const modules = import.meta.glob('../../blog/*.md', { eager: true });
+const mod = modules[path] as {
+	frontmatter: { title?: string; date?: string; excerpt?: string };
+	Content: unknown;
+	getHeadings?: () => Array<{ depth: number; slug: string; text: string }>;
+};
+
+const { frontmatter, Content } = mod;
+const headings = mod.getHeadings?.() ?? [];
+const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+
+function fmtDate(d?: string) {
+	if (!d) return '';
+	try {
+		return new Date(d).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		});
+	} catch {
+		return d;
+	}
+}
+---
+
+<MainLayout title={frontmatter.title}>
+    <article class="post">
+        <a class="back" href="/blog">&larr; Back to blog</a>
+
+        <header class="post__header glass">
+            {frontmatter.date && (
+                <time class="post__date" datetime={frontmatter.date}>{fmtDate(frontmatter.date)}</time>
+            )}
+            <h1 class="post__title">{frontmatter.title}</h1>
+            {frontmatter.excerpt && <p class="post__excerpt">{frontmatter.excerpt}</p>}
+        </header>
+
+        {toc.length > 0 && (
+            <nav class="toc glass" aria-label="Table of contents">
+                <span class="toc__label">On this page</span>
+                <ul>
+                    {toc.map((h) => (
+                        <li class={`toc__item toc__item--${h.depth}`}>
+                            <a href={`#${h.slug}`}>{h.text}</a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        )}
+
+        <div class="prose glass">
+            <Content />
+        </div>
+    </article>
+</MainLayout>
+
+<style>
+    .glass {
+        background: var(--bv-glass, rgba(250,250,250,0.6));
+        border: 1px solid var(--bv-border, rgba(28,28,28,0.12));
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        box-shadow: 0 8px 32px rgba(28,28,28,0.08);
+    }
+
+    .post {
+        max-width: 46rem;
+        margin-inline: auto;
+        padding: clamp(1.5rem, 4vw, 3rem) 0;
+    }
+    .back {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        color: var(--bv-primary);
+    }
+    .back:hover { text-decoration: underline; }
+
+    .post__header {
+        border-radius: 1.25rem;
+        padding: clamp(1.5rem, 4vw, 2.25rem);
+        margin-bottom: 1.25rem;
+    }
+    .post__date {
+        display: inline-block;
+        font-size: 0.85rem;
+        color: var(--bv-primary);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+    }
+    .post__title {
+        margin: 0 0 0.75rem;
+        font-size: clamp(1.8rem, 5vw, 2.75rem);
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+    }
+    .post__excerpt {
+        margin: 0;
+        font-size: 1.1rem;
+        color: var(--bv-muted, #5a5a5a);
+        line-height: 1.6;
+    }
+
+    .toc {
+        border-radius: 1rem;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+    .toc__label {
+        display: block;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--bv-primary);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    .toc ul { list-style: none; padding: 0; margin: 0; }
+    .toc__item { margin: 0.2rem 0; }
+    .toc__item--3 { margin-left: 1rem; }
+    .toc a {
+        text-decoration: none;
+        color: var(--bv-muted, #5a5a5a);
+    }
+    .toc a:hover { color: var(--bv-primary); text-decoration: underline; }
+
+    .prose {
+        border-radius: 1.25rem;
+        padding: clamp(1.5rem, 4vw, 2.5rem);
+        line-height: 1.7;
+    }
+    .prose :global(h1),
+    .prose :global(h2),
+    .prose :global(h3) {
+        margin-top: 2rem;
+        line-height: 1.25;
+        scroll-margin-top: 1rem;
+    }
+    .prose :global(h2) { font-size: 1.5rem; }
+    .prose :global(h3) { font-size: 1.2rem; }
+    .prose :global(p) { margin: 1rem 0; }
+    .prose :global(a) { color: var(--bv-primary); }
+    .prose :global(img) {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 8px 24px rgba(28,28,28,0.12);
+    }
+    .prose :global(code) {
+        background: rgba(127,127,127,0.15);
+        padding: 0.15rem 0.4rem;
+        border-radius: 0.35rem;
+        font-size: 0.9em;
+    }
+    .prose :global(pre) {
+        padding: 1rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+    }
+    .prose :global(pre code) { background: none; padding: 0; }
+
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+            --bv-glass: rgba(255,255,255,0.05);
+            --bv-border: rgba(255,255,255,0.10);
+            --bv-muted: #9a9a9a;
+        }
+        .glass { box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+        .post__excerpt, .toc a { color: #9a9a9a; }
+    }
+
+    @supports not (backdrop-filter: blur(1px)) {
+        .glass { background: rgba(250,250,250,0.92); }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) .glass { background: rgba(28,28,28,0.92); }
+        }
+    }
+</style>

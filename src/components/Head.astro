@@ -1,0 +1,23 @@
+---
+const { title = 'Bence Varga — Software Engineer' } = Astro.props;
+const description =
+	'Bence Varga — Software Engineer & Lead Support Engineer. Building reliable software and supporting developers.';
+const url = 'https://bence.varga.bio';
+---
+<link rel="sitemap" href="/sitemap-index.xml">
+<title>{title}</title>
+<meta name="description" content={description}>
+<meta name="author" content="Bence Varga">
+<meta name="theme-color" content="#177245">
+<meta name="color-scheme" content="light dark">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Bence Varga — Software Engineer" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={url} />
+<meta property="og:description" content={description} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Bence Varga — Software Engineer" />
+<meta name="twitter:description" content={description} />

@@ -1,0 +1,230 @@
+---
+import MainLayout from '../layout/MainLayout.astro';
+
+// Read markdown posts from src/blog (import.meta.glob replaces Astro.glob in Astro 7)
+const modules = import.meta.glob('../blog/*.md', { eager: true });
+
+type Post = {
+	title: string;
+	excerpt?: string;
+	date?: string;
+	url: string;
+};
+
+const posts: Post[] = Object.entries(modules)
+	.map(([path, mod]) => {
+		const fm = (mod as { frontmatter: Omit<Post, 'url'> }).frontmatter;
+		// derive the public URL from the file path: /blog/<slug>
+		const slug = path.match(/\/blog\/([^/]+)\.md$/)?.[1] ?? path;
+		return { ...fm, url: `/blog/${slug}` };
+	})
+	.sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
+
+function fmtDate(d?: string) {
+	if (!d) return '';
+	try {
+		return new Date(d).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+		});
+	} catch {
+		return d;
+	}
+}
+---
+
+<MainLayout title="Blog">
+    <section class="hero">
+        <p class="hero__eyebrow glass-pill">Lead Support Engineer &middot; Software Engineer</p>
+        <h1 class="hero__title">
+            The <span class="grad">Blog</span>
+        </h1>
+        <p class="hero__lead">
+            Notes on engineering, debugging, and the occasional side project.
+        </p>
+        <div class="hero__cta">
+            <a class="btn btn--primary" href="https://github.com/bencevarga666" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+                GitHub
+            </a>
+            <a class="btn btn--ghost" href="/about">About me</a>
+        </div>
+    </section>
+
+    <section class="posts" aria-label="Blog posts">
+        {posts.length === 0 ? (
+            <p class="empty">No posts yet — check back soon.</p>
+        ) : (
+            <ul class="post-list">
+                {posts.map((post) => (
+                    <li>
+                        <a class="post glass" href={post.url}>
+                            <div class="post__body">
+                                <h2 class="post__title">{post.title}</h2>
+                                {post.excerpt && <p class="post__excerpt">{post.excerpt}</p>}
+                                <div class="post__meta">
+                                    {post.date && <time datetime={post.date}>{fmtDate(post.date)}</time>}
+                                    <span class="post__read">Read &rarr;</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        )}
+    </section>
+</MainLayout>
+
+<style>
+    .glass {
+        background: var(--bv-glass, rgba(250,250,250,0.6));
+        border: 1px solid var(--bv-border, rgba(28,28,28,0.12));
+        backdrop-filter: blur(16px) saturate(140%);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        box-shadow: 0 8px 32px rgba(28,28,28,0.08);
+    }
+
+    /* ---------- Hero (mirrors the Home page exactly) ---------- */
+    .hero {
+        padding: clamp(3rem, 10vh, 7rem) 0 2rem;
+        text-align: center;
+        max-width: 46rem;
+        margin-inline: auto;
+    }
+    .hero__eyebrow {
+        display: inline-block;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        margin-bottom: 1.25rem;
+    }
+    .hero__title {
+        font-size: clamp(2.4rem, 7vw, 4.5rem);
+        line-height: 1.05;
+        margin: 0 0 1.25rem;
+        letter-spacing: -0.02em;
+        font-weight: 800;
+    }
+    .grad {
+        background: linear-gradient(120deg, var(--bv-primary), var(--bv-primary-glow) 60%, var(--bv-secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .hero__lead {
+        font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+        line-height: 1.6;
+        color: var(--bv-muted, #5a5a5a);
+        max-width: 38rem;
+        margin: 0 auto 2rem;
+    }
+    .hero__cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+    }
+
+    /* ---------- Buttons (mirrors the Home page) ---------- */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1.3rem;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn--primary {
+        background: linear-gradient(135deg, var(--bv-primary), var(--bv-primary-hover));
+        color: #fff;
+        box-shadow: 0 6px 20px rgba(23,114,69,0.35);
+    }
+    .btn--ghost {
+        background: var(--bv-glass, rgba(250,250,250,0.6));
+        border-color: var(--bv-border, rgba(28,28,28,0.18));
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        color: inherit;
+    }
+
+    .posts { margin: 2rem 0 3rem; }
+    .empty {
+        text-align: center;
+        color: var(--bv-muted, #5a5a5a);
+        padding: 3rem 0;
+    }
+    .post-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 1rem;
+    }
+    .post {
+        display: block;
+        padding: 1.5rem;
+        border-radius: 1.25rem;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .post:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(28,28,28,0.14);
+        border-color: var(--bv-primary);
+    }
+    .post__title {
+        margin: 0 0 0.5rem;
+        font-size: clamp(1.3rem, 3vw, 1.75rem);
+        font-weight: 700;
+    }
+    .post__excerpt {
+        margin: 0 0 1rem;
+        color: var(--bv-muted, #5a5a5a);
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .post__meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        color: var(--bv-muted, #5a5a5a);
+    }
+    .post__read {
+        font-weight: 700;
+        color: var(--bv-primary);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+            --bv-glass: rgba(255,255,255,0.05);
+            --bv-border: rgba(255,255,255,0.10);
+            --bv-muted: #9a9a9a;
+        }
+        .post { box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+        .post:hover { box-shadow: 0 16px 40px rgba(0,0,0,0.6); }
+        .hero__lead, .post__excerpt, .post__meta { color: #9a9a9a; }
+    }
+
+    @supports not (backdrop-filter: blur(1px)) {
+        .glass, .post, .btn--ghost { background: rgba(250,250,250,0.92); }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) .glass,
+            :root:not([data-theme="light"]) .post,
+            :root:not([data-theme="light"]) .btn--ghost {
+                background: rgba(28,28,28,0.92);
+            }
+        }
+    }
+</style>
